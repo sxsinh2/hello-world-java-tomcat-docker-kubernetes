@@ -1,0 +1,25 @@
+apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  selector:
+    matchLabels:
+      app: hello-world-app
+      role: master
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: hello-world-app
+        role: master
+    spec:
+      containers:
+      - name: master
+        image: sxsinh2/tomcat_java:v1.0
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 8080
